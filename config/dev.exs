@@ -62,7 +62,7 @@ config :phoenix, :plug_init_mode, :runtime
 # Configure your database
 config :tasks3, Tasks3.Repo,
   username: "tasks3",
-  password: "iChuseec1Kae",
+  password: "base12ball",
   database: "tasks3_dev",
   hostname: "localhost",
   pool_size: 10
