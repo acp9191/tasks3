@@ -1,4 +1,4 @@
-# HuskyShop
+# Tasks3
 
 To start your Phoenix server:
 

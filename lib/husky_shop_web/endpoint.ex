@@ -1,7 +1,7 @@
-defmodule HuskyShopWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :husky_shop
+defmodule Tasks3Web.Endpoint do
+  use Phoenix.Endpoint, otp_app: :tasks3
 
-  socket "/socket", HuskyShopWeb.UserSocket,
+  socket "/socket", Tasks3Web.UserSocket,
     websocket: true,
     longpoll: false
 
@@ -10,7 +10,7 @@ defmodule HuskyShopWeb.Endpoint do
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :husky_shop, gzip: false,
+    at: "/", from: :tasks3, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -37,8 +37,8 @@ defmodule HuskyShopWeb.Endpoint do
   # Set :encryption_salt if you would also like to encrypt it.
   plug Plug.Session,
     store: :cookie,
-    key: "_husky_shop_key",
+    key: "_tasks3_key",
     signing_salt: "aUuoRfie"
 
-  plug HuskyShopWeb.Router
+  plug Tasks3Web.Router
 end

@@ -1,12 +1,12 @@
-defmodule HuskyShopWeb do
+defmodule Tasks3Web do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, views, channels and so on.
 
   This can be used in your application as:
 
-      use HuskyShopWeb, :controller
-      use HuskyShopWeb, :view
+      use Tasks3Web, :controller
+      use Tasks3Web, :view
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,18 +19,18 @@ defmodule HuskyShopWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: HuskyShopWeb
+      use Phoenix.Controller, namespace: Tasks3Web
 
       import Plug.Conn
-      import HuskyShopWeb.Gettext
-      alias HuskyShopWeb.Router.Helpers, as: Routes
+      import Tasks3Web.Gettext
+      alias Tasks3Web.Router.Helpers, as: Routes
     end
   end
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/husky_shop_web/templates",
-                        namespace: HuskyShopWeb
+      use Phoenix.View, root: "lib/tasks3_web/templates",
+                        namespace: Tasks3Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
@@ -38,9 +38,9 @@ defmodule HuskyShopWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import HuskyShopWeb.ErrorHelpers
-      import HuskyShopWeb.Gettext
-      alias HuskyShopWeb.Router.Helpers, as: Routes
+      import Tasks3Web.ErrorHelpers
+      import Tasks3Web.Gettext
+      alias Tasks3Web.Router.Helpers, as: Routes
     end
   end
 
@@ -55,7 +55,7 @@ defmodule HuskyShopWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import HuskyShopWeb.Gettext
+      import Tasks3Web.Gettext
     end
   end
 

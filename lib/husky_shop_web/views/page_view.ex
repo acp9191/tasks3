@@ -1,3 +1,3 @@
-defmodule HuskyShopWeb.PageView do
-  use HuskyShopWeb, :view
+defmodule Tasks3Web.PageView do
+  use Tasks3Web, :view
 end

@@ -1,3 +1,3 @@
-defmodule HuskyShopWeb.LayoutViewTest do
-  use HuskyShopWeb.ConnCase, async: true
+defmodule Tasks3Web.LayoutViewTest do
+  use Tasks3Web.ConnCase, async: true
 end

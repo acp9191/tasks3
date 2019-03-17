@@ -1,11 +1,11 @@
-defmodule HuskyShopWeb.Gettext do
+defmodule Tasks3Web.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 
   By using [Gettext](https://hexdocs.pm/gettext),
   your module gains a set of macros for translations, for example:
 
-      import HuskyShopWeb.Gettext
+      import Tasks3Web.Gettext
 
       # Simple translation
       gettext("Here is the string to translate")
@@ -20,5 +20,5 @@ defmodule HuskyShopWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :husky_shop
+  use Gettext, otp_app: :tasks3
 end

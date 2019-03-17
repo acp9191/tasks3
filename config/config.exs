@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :husky_shop,
-  ecto_repos: [HuskyShop.Repo]
+config :tasks3,
+  ecto_repos: [Tasks3.Repo]
 
 # Configures the endpoint
-config :husky_shop, HuskyShopWeb.Endpoint,
+config :tasks3, Tasks3Web.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "BtzlTBL8At1a6+g5e/eUyyID8uz7Fed9YfTeAU7ntuG9WBnV/zzDk0YxQHbukZxP",
-  render_errors: [view: HuskyShopWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: HuskyShop.PubSub,
+  render_errors: [view: Tasks3Web.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Tasks3.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

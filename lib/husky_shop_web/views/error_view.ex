@@ -1,5 +1,5 @@
-defmodule HuskyShopWeb.ErrorView do
-  use HuskyShopWeb, :view
+defmodule Tasks3Web.ErrorView do
+  use Tasks3Web, :view
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

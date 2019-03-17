@@ -1,3 +1,3 @@
-defmodule HuskyShopWeb.LayoutView do
-  use HuskyShopWeb, :view
+defmodule Tasks3Web.LayoutView do
+  use Tasks3Web, :view
 end

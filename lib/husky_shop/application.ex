@@ -1,4 +1,4 @@
-defmodule HuskyShop.Application do
+defmodule Tasks3.Application do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
@@ -9,23 +9,23 @@ defmodule HuskyShop.Application do
     # List all child processes to be supervised
     children = [
       # Start the Ecto repository
-      HuskyShop.Repo,
+      Tasks3.Repo,
       # Start the endpoint when the application starts
-      HuskyShopWeb.Endpoint,
-      # Starts a worker by calling: HuskyShop.Worker.start_link(arg)
-      # {HuskyShop.Worker, arg},
+      Tasks3Web.Endpoint,
+      # Starts a worker by calling: Tasks3.Worker.start_link(arg)
+      # {Tasks3.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: HuskyShop.Supervisor]
+    opts = [strategy: :one_for_one, name: Tasks3.Supervisor]
     Supervisor.start_link(children, opts)
   end
 
   # Tell Phoenix to update the endpoint configuration
   # whenever the application is updated.
   def config_change(changed, _new, removed) do
-    HuskyShopWeb.Endpoint.config_change(changed, removed)
+    Tasks3Web.Endpoint.config_change(changed, removed)
     :ok
   end
 end

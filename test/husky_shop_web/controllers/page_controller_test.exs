@@ -1,5 +1,5 @@
-defmodule HuskyShopWeb.PageControllerTest do
-  use HuskyShopWeb.ConnCase
+defmodule Tasks3Web.PageControllerTest do
+  use Tasks3Web.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get conn, "/"

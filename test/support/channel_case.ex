@@ -1,4 +1,4 @@
-defmodule HuskyShopWeb.ChannelCase do
+defmodule Tasks3Web.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,15 +21,15 @@ defmodule HuskyShopWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint HuskyShopWeb.Endpoint
+      @endpoint Tasks3Web.Endpoint
     end
   end
 
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HuskyShop.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tasks3.Repo)
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HuskyShop.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Tasks3.Repo, {:shared, self()})
     end
     :ok
   end
