@@ -17,3 +17,8 @@ pwhash = Argon2.hash_pwd_salt("pass1")
 
 Repo.insert!(%User{email: "alice@example.com", admin: true, password_hash: pwhash})
 Repo.insert!(%User{email: "bob@example.com", admin: false, password_hash: pwhash})
+
+alias Tasks3.Tasks.Task
+
+Repo.insert!(%Task{title: "task1", description: "First Task", length: 15, is_completed: false, user_id: 1})
+Repo.insert!(%Task{title: "task2", description: "Second Task", length: 15, is_completed: false, user_id: 2})

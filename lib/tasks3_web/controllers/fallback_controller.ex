@@ -19,4 +19,10 @@ defmodule Tasks3Web.FallbackController do
     |> put_view(Tasks3Web.ErrorView)
     |> render(:"404")
   end
+
+  def call(conn, {:error, "invalid password"}) do
+    conn
+    |> put_resp_header("content-type", "application/json; charset=UTF-8")
+    |> send_resp(:unprocessable_entity, Jason.encode!(%{error: "auth failed"})
+  end
 end
