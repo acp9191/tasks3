@@ -11,10 +11,13 @@ defmodule Tasks3Web.TaskView do
   end
 
   def render("task.json", %{task: task}) do
-    %{id: task.id,
+    %{
+      id: task.id,
       title: task.title,
       description: task.description,
       length: task.length,
-      is_completed: task.is_completed}
+      is_completed: task.is_completed,
+      user_id: task.user_id
+    }
   end
 end
