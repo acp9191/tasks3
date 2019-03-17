@@ -1,8 +1,11 @@
 defmodule Tasks3Web.SessionController do
   use Tasks3Web, :controller
 
+  alias Tasks3.Users
+  alias Tasks3.Users.User
+
   def create(conn, %{"email" => email, "password" => password}) do
-    with %User{} = user <- get_and_auth_user(email, pass) do
+    with %User{} = user <- Users.get_and_auth_user(email, password) do
       resp = %{
         data: %{
           token: Phoenix.Token.sign(Tasks3Web.Endpoint, "user_id", user.id),

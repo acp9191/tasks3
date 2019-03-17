@@ -18,6 +18,7 @@ defmodule Tasks3Web.Router do
 
     resources "/users", UserController, except: [:new, :edit]
     resources "/tasks", TaskController, except: [:new, :edit]
+    resources "/sessions", SessionController, only: [:create]
     post "/auth", AuthController, :authenticate
   end
 
@@ -25,6 +26,7 @@ defmodule Tasks3Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/users", PageController, :index
   end
 
   # Other scopes may use custom stacks.

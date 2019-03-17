@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import { Link, BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Header from './Header';
 
 export default function root_init(node) {
   let tasks = window.tasks;
@@ -17,6 +18,30 @@ class Root extends Component {
       users: props.users,
       tasks: props.tasks
     };
+
+    this.create_session('bob@example.com', 'pass1');
+  }
+
+  send_post(path, req, on_success) {
+    $.ajax(path, {
+      method: 'post',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(req),
+      success: on_success
+    });
+  }
+
+  create_session(email, password) {
+    $.ajax('/api/v1/sessions', {
+      method: 'post',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify({ email, password }),
+      success: resp => {
+        this.setState(_.assign({}, this.state, { session: resp.data }));
+      }
+    });
   }
 
   fetch_tasks() {
@@ -64,93 +89,4 @@ class Root extends Component {
       </div>
     );
   }
-}
-
-function Header(props) {
-  let { root } = props;
-  return (
-    <div className="row my-2">
-      <div className="col-4">
-        <h1>
-          <Link to={'/'}>Task Tracker</Link>
-        </h1>
-      </div>
-      <div className="col-2">
-        <p>
-          <Link to={'/users'} onClick={root.fetch_users.bind(root)}>
-            Users
-          </Link>
-        </p>
-      </div>
-      <div className="col-6">
-        <div className="form-inline my-2">
-          <input type="email" placeholder="email" />
-          <input type="password" placeholder="password" />
-          <button className="btn btn-secondary">Login</button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function UserList(props) {
-  let rows = _.map(props.users, uu => <User key={uu.id} user={uu} />);
-  return (
-    <div className="row">
-      <div className="col-12">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Email</th>
-              <th>Admin?</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function User(props) {
-  let { user } = props;
-  return (
-    <tr>
-      <td>{user.email}</td>
-      <td>{user.admin ? 'yes' : 'no'}</td>
-    </tr>
-  );
-}
-
-function TaskList(props) {
-  let rows = _.map(props.tasks, task => <Task key={task.id} task={task} />);
-  return (
-    <div className="row">
-      <div className="col-12">
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Description</th>
-              <th>Length</th>
-              <th>Complete?</th>
-            </tr>
-          </thead>
-          <tbody>{rows}</tbody>
-        </table>
-      </div>
-    </div>
-  );
-}
-
-function Task(props) {
-  let { task } = props;
-  return (
-    <tr>
-      <td>{task.title}</td>
-      <td>{task.description}</td>
-      <td>{task.length}</td>
-      <td>{task.is_completed ? 'yes' : 'no'}</td>
-    </tr>
-  );
 }
