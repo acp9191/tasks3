@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './Header';
+import TaskList from './TaskList';
+import UserList from './UserList';
 
 export default function root_init(node) {
   let tasks = window.tasks;
