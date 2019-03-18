@@ -75,20 +75,35 @@ class Server {
   //   );
   // }
 
-  // delete_cart_item(id) {
-  //   $.ajax('/api/v1/cart_items/' + id, {
-  //     method: 'delete',
-  //     dataType: 'json',
-  //     contentType: 'application/json; charset=UTF-8',
-  //     data: '',
-  //     success: resp => {
-  //       store.dispatch({
-  //         type: 'CART_DELETE',
-  //         cart_item_id: id
-  //       });
-  //     }
-  //   });
-  // }
+  delete_task(id) {
+    $.ajax('/api/v1/tasks/' + id, {
+      method: 'delete',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: '',
+      success: resp => {
+        store.dispatch({
+          type: 'TASK_DELETE',
+          task_id: id
+        });
+      }
+    });
+  }
+
+  delete_user(id) {
+    $.ajax('/api/v1/users/' + id, {
+      method: 'delete',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: '',
+      success: resp => {
+        store.dispatch({
+          type: 'USER_DELETE',
+          user_id: id
+        });
+      }
+    });
+  }
 }
 
 export default new Server();

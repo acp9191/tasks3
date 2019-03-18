@@ -63,7 +63,17 @@ function Task(props) {
         <button className="btn btn-info" onClick={() => console.log('TODO2')}>
           Edit
         </button>
-        <button className="btn btn-danger" onClick={() => console.log('TODO3')}>
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            let confirmDelete = confirm(
+              'Are you sure you want to delete ' + task.title + '?'
+            );
+            if (confirmDelete) {
+              api.delete_task(task.id);
+            }
+          }}
+        >
           Delete
         </button>
       </td>

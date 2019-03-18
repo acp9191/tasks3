@@ -17,15 +17,16 @@ function Header(props) {
   } else {
     session_info = (
       <div className="my-2">
-        <p>Logged in as {session.email}</p>
+        <span>Logged in as {session.email}</span> &nbsp;
+        <button className="btn btn-secondary">Logout</button>
       </div>
     );
   }
 
   return (
     <div className="row my-2">
-      <div className="col-4">
-        <h1>Husky Shop</h1>
+      <div className="col-3">
+        <h1>Task Tracker</h1>
       </div>
       <div className="col-3">
         <p>
@@ -33,7 +34,7 @@ function Header(props) {
           <Link to={'/users'}>Users</Link>
         </p>
       </div>
-      <div className="col-5">{session_info}</div>
+      <div className="col-6">{session_info}</div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import api from './api';
 
 function UserList(props) {
   let { users, dispatch } = props;
@@ -50,7 +51,17 @@ function User(props) {
         <button className="btn btn-info" onClick={() => console.log('TODO2')}>
           Edit
         </button>
-        <button className="btn btn-danger" onClick={() => console.log('TODO3')}>
+        <button
+          className="btn btn-danger"
+          onClick={() => {
+            let confirmDelete = confirm(
+              'Are you sure you want to delete ' + user.email + '?'
+            );
+            if (confirmDelete) {
+              api.delete_user(user.id);
+            }
+          }}
+        >
           Delete
         </button>
       </td>
