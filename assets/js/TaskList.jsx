@@ -1,10 +1,12 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import api from './api';
 
 function TaskList(props) {
   let { tasks, dispatch } = props;
+
   let rows = _.map(tasks, task => (
     <Task key={task.id} task={task} dispatch={dispatch} />
   ));
@@ -17,6 +19,7 @@ function TaskList(props) {
             <tr>
               <th>Title</th>
               <th>Description</th>
+              <th>Assigned To</th>
               <th>Length</th>
               <th>Complete?</th>
               <th />
@@ -25,12 +28,7 @@ function TaskList(props) {
           <tbody>{rows}</tbody>
         </table>
         <span>
-          <button
-            className="btn btn-primary"
-            onClick={() => console.log('TOD4')}
-          >
-            New Task
-          </button>
+          <Link to="/tasks/new">New Task</Link>
         </span>
       </div>
     </div>
@@ -38,29 +36,22 @@ function TaskList(props) {
 }
 
 function Task(props) {
-  let { task, dispatch } = props;
-  function update(ev) {
-    let action = {
-      type: 'UPDATE_CREATE_TASK_FORM',
-      task_id: task.id
-      // TODO: more stuff here probebly
-    };
-    dispatch(action);
-  }
+  let { task } = props;
   return (
     <tr>
       <td>{task.title}</td>
       <td>{task.description}</td>
+      <td>{task.user_id}</td>
       <td>{task.length}</td>
       <td>{task.is_completed ? 'yes' : 'no'}</td>
       <td>
         <button
           className="btn btn-secondary"
-          onClick={() => console.log('TODO')}
+          onClick={() => updateTaskView('SHOW')}
         >
           Show
         </button>
-        <button className="btn btn-info" onClick={() => console.log('TODO2')}>
+        <button className="btn btn-info" onClick={() => updateTaskView('EDIT')}>
           Edit
         </button>
         <button
@@ -82,7 +73,6 @@ function Task(props) {
 }
 
 function state2props(state) {
-  console.log('rerender', state);
   return {
     tasks: state.tasks
   };

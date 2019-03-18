@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import api from './api';
 
 function UserList(props) {
@@ -70,7 +71,6 @@ function User(props) {
 }
 
 function state2props(state) {
-  console.log('rerender', state);
   return {
     users: state.users
   };

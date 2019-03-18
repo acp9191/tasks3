@@ -7,6 +7,17 @@ function tasks(state = [], action) {
       return action.data;
     case 'TASK_DELETE':
       return _.filter(state, task => task.id != action.task_id);
+    case 'TASK_CREATE':
+      return _.concat(state, action.data);
+    default:
+      return state;
+  }
+}
+
+function tasks_view(state = 'INDEX', action) {
+  switch (action.type) {
+    case 'TASKS_VIEW_CHANGE':
+      return action.data;
     default:
       return state;
   }
@@ -18,6 +29,15 @@ function users(state = [], action) {
       return action.data;
     case 'USER_DELETE':
       return _.filter(state, user => user.id != action.user_id);
+    default:
+      return state;
+  }
+}
+
+function users_view(state = 'INDEX', action) {
+  switch (action.type) {
+    case 'USERS_VIEW_CHANGE':
+      return action.data;
     default:
       return state;
   }
@@ -55,18 +75,20 @@ function add_item_forms(state = new Map(), action) {
 }
 
 function root_reducer(state0, action) {
-  console.log('reducer', state0, action);
+  // console.log('reducer', state0, action);
 
   let reducer = combineReducers({
     tasks,
+    tasks_view,
     users,
+    users_view,
     session,
     login_form,
     add_item_forms
   });
   let state1 = reducer(state0, action);
 
-  console.log('reducer1', state1);
+  // console.log('reducer1', state1);
 
   return deepFreeze(state1);
 }

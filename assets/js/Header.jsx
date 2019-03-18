@@ -16,6 +16,10 @@ function Header(props) {
     password = ev.target.value;
   }
 
+  function login() {
+    api.create_session(email, password);
+  }
+
   function logout() {
     let action = {
       type: 'LOGOUT_SESSION'
@@ -31,11 +35,13 @@ function Header(props) {
           type="password"
           placeholder="password"
           onChange={updatePassword}
+          onKeyPress={e => {
+            if (e.key == 'Enter') {
+              login();
+            }
+          }}
         />
-        <button
-          className="btn btn-secondary"
-          onClick={() => api.create_session(email, password)}
-        >
+        <button className="btn btn-secondary" onClick={login}>
           Login
         </button>
       </div>
@@ -58,7 +64,7 @@ function Header(props) {
       </div>
       <div className="col-3">
         <p>
-          <Link to={'/'}>Tasks</Link> &nbsp; | &nbsp;
+          <Link to={'/tasks'}>Tasks</Link> &nbsp; | &nbsp;
           <Link to={'/users'}>Users</Link>
         </p>
       </div>

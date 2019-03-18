@@ -29,13 +29,14 @@ class Server {
     });
   }
 
-  send_post(path, data, callback) {
+  send_post(path, data, callback, error_callback) {
     $.ajax(path, {
       method: 'post',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
-      success: callback
+      success: callback,
+      error: error_callback
     });
   }
 
@@ -51,6 +52,31 @@ class Server {
           type: 'NEW_SESSION',
           data: resp.data
         });
+      }
+    );
+  }
+
+  create_task(title, description, user, length, is_complete) {
+    // TODO error handling
+    this.send_post(
+      '/api/v1/tasks',
+      {
+        task: {
+          title,
+          description,
+          user,
+          length,
+          is_complete
+        }
+      },
+      resp => {
+        store.dispatch({
+          type: 'TASK_CREATE',
+          data: resp.data
+        });
+      },
+      (request, status, error) => {
+        console.log(request, status, error);
       }
     );
   }
