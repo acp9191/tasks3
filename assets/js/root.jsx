@@ -29,7 +29,7 @@ class Root extends Component {
       tasks: props.tasks
     };
 
-    api.create_session('bob@example.com', 'pass1');
+    // api.create_session('bob@example.com', 'pass1');
     api.fetch_tasks();
     api.fetch_users();
   }

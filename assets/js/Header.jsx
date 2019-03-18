@@ -2,23 +2,51 @@ import React from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import api from './api';
 
 function Header(props) {
-  let { session } = props;
-  let session_info;
+  let { session, dispatch } = props;
+  let session_info, email, password;
+
+  function updateEmail(ev) {
+    email = ev.target.value;
+  }
+
+  function updatePassword(ev) {
+    password = ev.target.value;
+  }
+
+  function logout() {
+    let action = {
+      type: 'LOGOUT_SESSION'
+    };
+    dispatch(action);
+  }
+
   if (session == null) {
     session_info = (
       <div className="form-inline my-2">
-        <input type="email" placeholder="email" />
-        <input type="password" placeholder="password" />
-        <button className="btn btn-secondary">Login</button>
+        <input type="email" placeholder="email" onChange={updateEmail} />
+        <input
+          type="password"
+          placeholder="password"
+          onChange={updatePassword}
+        />
+        <button
+          className="btn btn-secondary"
+          onClick={() => api.create_session(email, password)}
+        >
+          Login
+        </button>
       </div>
     );
   } else {
     session_info = (
       <div className="my-2">
         <span>Logged in as {session.email}</span> &nbsp;
-        <button className="btn btn-secondary">Logout</button>
+        <button className="btn btn-secondary" onClick={() => logout()}>
+          Logout
+        </button>
       </div>
     );
   }
