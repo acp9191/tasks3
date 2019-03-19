@@ -51,12 +51,14 @@ function Task(props) {
       <td>{task.length}</td>
       <td>{task.is_completed ? 'yes' : 'no'}</td>
       <td>
-        <button
-          className="btn btn-secondary"
-          onClick={() => updateTaskView('SHOW')}
-        >
-          Show
-        </button>
+        <Link to={'/tasks/' + task.id}>
+          <button
+            className="btn btn-secondary"
+            onClick={() => api.fetch_task(task.id)}
+          >
+            Show
+          </button>
+        </Link>
         <button className="btn btn-info" onClick={() => updateTaskView('EDIT')}>
           Edit
         </button>

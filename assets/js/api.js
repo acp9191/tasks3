@@ -20,6 +20,15 @@ class Server {
     });
   }
 
+  fetch_task(id) {
+    return this.fetch_path('/api/v1/tasks/' + id, resp => {
+      store.dispatch({
+        type: 'TASK_SHOW',
+        data: resp.data
+      });
+    });
+  }
+
   fetch_users() {
     return this.fetch_path('/api/v1/users', resp => {
       store.dispatch({

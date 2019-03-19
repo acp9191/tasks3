@@ -46,6 +46,10 @@ defmodule Tasks3Web.TaskController do
 
   def show(conn, %{"id" => id}) do
     task = Tasks.get_task!(id)
+
+    user = Users.get_user(task.user_id)
+    task = %{task | user_id: user.email}
+
     render(conn, "show.json", task: task)
   end
 

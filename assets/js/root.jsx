@@ -15,6 +15,7 @@ import UserEdit from './UserEdit';
 
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
+import TaskShow from './TaskShow';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -58,6 +59,7 @@ class Root extends Component {
                 exact={true}
                 render={() => <TaskForm />}
               />
+              <Route path="/tasks/:id" exact={true} component={TaskShow} />
             </Switch>
           </div>
         </Router>
