@@ -16,6 +16,7 @@ import UserEdit from './UserEdit';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 import TaskShow from './TaskShow';
+import TaskEdit from './TaskEdit';
 
 export default function root_init(node, store) {
   ReactDOM.render(
@@ -54,6 +55,11 @@ class Root extends Component {
               />
               <Route path="/users/:id" exact={true} component={UserShow} />
               <Route path="/tasks" exact={true} render={() => <TaskList />} />
+              <Route
+                path="/tasks/edit/:id"
+                exact={true}
+                render={() => <TaskEdit />}
+              />
               <Route
                 path="/tasks/new"
                 exact={true}

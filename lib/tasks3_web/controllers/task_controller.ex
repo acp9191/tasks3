@@ -40,7 +40,7 @@ defmodule Tasks3Web.TaskController do
 
       user = Users.get_user(task.user_id)
       task = %{task | user_id: user.email}
-      
+
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.task_path(conn, :show, task))
@@ -59,6 +59,8 @@ defmodule Tasks3Web.TaskController do
 
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
+
+    IO.inspect(task_params)
 
     with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do
       render(conn, "show.json", task: task)

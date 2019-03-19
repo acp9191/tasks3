@@ -46,9 +46,14 @@ function Task(props) {
 
   let loggedInBtns = session ? (
     <span>
-      <button className="btn btn-info" onClick={() => updateTaskView('EDIT')}>
-        Edit
-      </button>
+      <Link to={'/tasks/edit/' + task.id}>
+        <button
+          className="btn btn-info"
+          onClick={() => api.fetch_task(task.id)}
+        >
+          Edit
+        </button>
+      </Link>
       <button
         className="btn btn-danger"
         onClick={() => {

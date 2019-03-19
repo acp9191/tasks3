@@ -35,6 +35,8 @@ defmodule Tasks3Web.UserController do
   end
 
   def update(conn, %{"id" => id, "user" => user_params}) do
+
+    IO.inspect(user_params)
     user = Users.get_user!(id)
 
     pwhash = if (user_params["password"] != nil) do

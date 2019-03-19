@@ -219,6 +219,48 @@ class Server {
       }
     });
   }
+
+  update_task(id, title, description, user, length, is_complete) {
+    let data = {
+      task: {
+        title,
+        description,
+        user,
+        length,
+        is_complete
+      }
+    };
+
+    return $.ajax('/api/v1/tasks/' + id, {
+      method: 'put',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data),
+      success: resp => {
+        store.dispatch({
+          type: 'TASK_LIST',
+          data: resp.data
+        });
+        this.fetch_tasks();
+        store.dispatch({
+          type: 'REDIRECT_TRUE'
+        });
+
+        return resp.data;
+      },
+      error: (request, _status, _error) => {
+        console.log(request);
+        if (request.responseJSON) {
+          let errors = request.responseJSON.errors;
+          for (var key in errors)
+            if (errors.hasOwnProperty(key)) {
+              let displayKey = key == 'user_id' ? 'User' : key;
+              alert('Error in field ' + displayKey + ': ' + errors[key]);
+            }
+        }
+      }
+    });
+  }
 }
 
 export default new Server();
