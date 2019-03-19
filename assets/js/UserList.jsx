@@ -5,10 +5,9 @@ import { Link } from 'react-router-dom';
 import api from './api';
 
 function UserList(props) {
-  let { users, session } = props;
-  console.log(session);
+  let { users, session, dispatch } = props;
   let rows = _.map(users, user => (
-    <User key={user.id} user={user} session={session} />
+    <User key={user.id} user={user} dispatch={dispatch} session={session} />
   ));
 
   return (
@@ -33,13 +32,26 @@ function UserList(props) {
 }
 
 function User(props) {
-  let { user, session } = props;
+  let { user, session, dispatch } = props;
 
   let showBtn = (
     <button className="btn btn-secondary" onClick={() => console.log('TODO')}>
       Show
     </button>
   );
+
+  function confirmDelete() {
+    let confirmDelete = confirm(
+      'Are you sure you want to delete ' + user.email + '?'
+    );
+    if (confirmDelete) {
+      let action = {
+        type: 'LOGOUT_SESSION'
+      };
+      dispatch(action);
+      api.delete_user(user.id);
+    }
+  }
 
   let buttons =
     session && session.user_id == user.id ? (
@@ -48,17 +60,7 @@ function User(props) {
         <button className="btn btn-info" onClick={() => console.log('TODO2')}>
           Edit
         </button>
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            let confirmDelete = confirm(
-              'Are you sure you want to delete ' + user.email + '?'
-            );
-            if (confirmDelete) {
-              api.delete_user(user.id);
-            }
-          }}
-        >
+        <button className="btn btn-danger" onClick={confirmDelete}>
           Delete
         </button>
       </td>

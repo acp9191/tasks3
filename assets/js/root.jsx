@@ -13,12 +13,9 @@ import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 
 export default function root_init(node, store) {
-  let tasks = window.tasks;
-  let users = window.tasks;
-
   ReactDOM.render(
     <Provider store={store}>
-      <Root tasks={tasks} users={users} />
+      <Root />
     </Provider>,
     node
   );

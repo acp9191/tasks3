@@ -56,25 +56,25 @@ function session(state = null, action) {
   }
 }
 
-let login_form0 = {
-  email: '',
-  password: ''
-};
+// let login_form0 = {
+//   email: '',
+//   password: ''
+// };
 
-function login_form(state = login_form0, action) {
-  return state;
-}
+// function login_form(state = login_form0, action) {
+//   return state;
+// }
 
-function add_item_forms(state = new Map(), action) {
-  switch (action.type) {
-    case 'UPDATE_ADD_CART_FORM':
-      let state1 = new Map(state);
-      state1.set(action.product_id, action.count);
-      return state1;
-    default:
-      return state;
-  }
-}
+// function add_item_forms(state = new Map(), action) {
+//   switch (action.type) {
+//     case 'UPDATE_ADD_CART_FORM':
+//       let state1 = new Map(state);
+//       state1.set(action.product_id, action.count);
+//       return state1;
+//     default:
+//       return state;
+//   }
+// }
 
 function root_reducer(state0, action) {
   // console.log('reducer', state0, action);
@@ -84,15 +84,14 @@ function root_reducer(state0, action) {
     tasks_view,
     users,
     users_view,
-    session,
-    login_form,
-    add_item_forms
+    session
+    // login_form,
+    // add_item_forms
   });
-  let state1 = reducer(state0, action);
 
   // console.log('reducer1', state1);
 
-  return deepFreeze(state1);
+  return deepFreeze(reducer(state0, action));
 }
 
 let store = createStore(root_reducer);
