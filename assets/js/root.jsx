@@ -7,9 +7,12 @@ import { Provider } from 'react-redux';
 import api from './api';
 import Header from './Header';
 import Home from './Home';
+
 import UserList from './UserList';
 import UserForm from './UserForm';
 import UserShow from './UserShow';
+import UserEdit from './UserEdit';
+
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
 
@@ -40,7 +43,7 @@ class Root extends Component {
             <Route
               path="/users/edit/:id"
               exact={true}
-              render={() => <UserForm />}
+              render={() => <UserEdit />}
             />
             <Route path="/users/:id" exact={true} component={UserShow} />
             <Route path="/users/new" exact={true} render={() => <UserForm />} />

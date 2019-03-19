@@ -39,6 +39,14 @@ defmodule Tasks3Web.UserController do
   def update(conn, %{"id" => id, "user" => user_params}) do
     user = Users.get_user!(id)
 
+    pwhash = if (user_params["password"] != nil) do
+      Argon2.hash_pwd_salt(user_params["password"])
+    else
+      ""
+    end
+
+    user_params = Map.put(user_params, "password_hash", pwhash)
+
     with {:ok, %User{} = user} <- Users.update_user(user, user_params) do
       render(conn, "show.json", user: user)
     end

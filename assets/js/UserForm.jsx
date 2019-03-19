@@ -8,10 +8,6 @@ function UserForm(props) {
 
   let email, password;
 
-  if (user != null) {
-    email = user.email;
-  }
-
   function update(ev, field) {
     switch (field) {
       case 'EMAIL':
@@ -46,10 +42,9 @@ function UserForm(props) {
           <label>Email</label>
           <input
             className="form-control"
-            // onChange={ev => {
-            //   update(ev, 'EMAIL');
-            // }}
-            value={email}
+            onChange={ev => {
+              update(ev, 'EMAIL');
+            }}
             type="email"
             required
           />
@@ -85,7 +80,7 @@ function UserForm(props) {
 
 function state2props(state) {
   return {
-    users: state.users
+    user: state.user
   };
 }
 

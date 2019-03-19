@@ -50,7 +50,7 @@ function session(state = null, action) {
 }
 
 function root_reducer(state0, action) {
-  // console.log('reducer', state0, action);
+  console.log('reducer', state0, action);
 
   let reducer = combineReducers({
     tasks,
@@ -63,7 +63,7 @@ function root_reducer(state0, action) {
 
   let state1 = reducer(state0, action);
 
-  // console.log('reducer1', state1);
+  console.log('reducer1', state1);
 
   return deepFreeze(state1);
 }

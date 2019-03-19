@@ -48,7 +48,7 @@ class Server {
       error: error_callback
     });
     resp.then(msg => {
-      console.log(msg);
+      // console.log(msg);
       return msg;
     });
   }
@@ -172,6 +172,44 @@ class Server {
           user_id: id
         });
         this.fetch_tasks();
+      }
+    });
+  }
+
+  update_user(id, email, password) {
+    let data = {
+      user: {
+        id,
+        email,
+        password
+      }
+    };
+
+    $.ajax('/api/v1/users/' + id, {
+      method: 'put',
+      dataType: 'json',
+      contentType: 'application/json; charset=UTF-8',
+      data: JSON.stringify(data),
+      success: resp => {
+        store.dispatch({
+          type: 'USER_LIST',
+          data: resp.data
+        });
+        this.fetch_tasks();
+        window.location = window.location.href.substring(
+          0,
+          window.location.href.length - 7
+        );
+      },
+      error: (request, _status, _error) => {
+        if (request.responseJSON) {
+          let errors = request.responseJSON.errors;
+          for (var key in errors)
+            if (errors.hasOwnProperty(key)) {
+              let displayKey = key == 'password_hash' ? 'Password' : 'Email';
+              alert('Error in field ' + displayKey + ': ' + errors[key]);
+            }
+        }
       }
     });
   }
