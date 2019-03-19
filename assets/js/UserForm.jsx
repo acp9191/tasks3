@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
+import store from './store';
 
 function UserForm(props) {
-  let { user } = props;
-
+  let { redirect } = props;
   let email, password;
 
   function update(ev, field) {
@@ -22,65 +22,64 @@ function UserForm(props) {
   }
 
   function handleSubmit(ev) {
-    console.log('handle');
-    // ev.preventDefault();
-    // const form = ev.target;
-    // const data =
-
-    let resp = api.create_user(email, password);
-    console.log(resp);
-    // window.location = window.location.href.substring(
-    //   0,
-    //   window.location.href.length - 4
-    // );
+    api.create_user(email, password).then(() => {
+      store.dispatch({
+        type: 'REDIRECT_UNTRUE'
+      });
+    });
   }
 
-  return (
-    <div>
-      <form noValidate>
-        <div className="form-group">
-          <label>Email</label>
-          <input
-            className="form-control"
-            onChange={ev => {
-              update(ev, 'EMAIL');
-            }}
-            type="email"
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
-            className="form-control"
-            onChange={ev => {
-              update(ev, 'PASSWORD');
-            }}
-            type="password"
-            required
-          />
-        </div>
-      </form>
+  if (redirect == true) {
+    return <Redirect to="/users" />;
+  } else {
+    return (
       <div>
-        <button
-          className="btn btn-primary"
-          type="submit"
-          onClick={handleSubmit}
-        >
-          Save
-        </button>
+        <form noValidate>
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              className="form-control"
+              onChange={ev => {
+                update(ev, 'EMAIL');
+              }}
+              type="email"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Password</label>
+            <input
+              className="form-control"
+              onChange={ev => {
+                update(ev, 'PASSWORD');
+              }}
+              type="password"
+              required
+            />
+          </div>
+        </form>
+        <div>
+          <button
+            className="btn btn-primary"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </div>
+        <br />
+        <span>
+          <Link to={'/users'}>Back</Link>
+        </span>
       </div>
-      <br />
-      <span>
-        <Link to={'/users'}>Back</Link>
-      </span>
-    </div>
-  );
+    );
+  }
 }
 
 function state2props(state) {
   return {
-    user: state.user
+    user: state.user,
+    redirect: state.redirect
   };
 }
 

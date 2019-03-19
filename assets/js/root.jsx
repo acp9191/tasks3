@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import api from './api';
@@ -38,17 +38,27 @@ class Root extends Component {
         <Router>
           <div>
             <Header />
-            <Route path="/" exact={true} render={() => <Home />} />
-            <Route path="/users" exact={true} render={() => <UserList />} />
-            <Route
-              path="/users/edit/:id"
-              exact={true}
-              render={() => <UserEdit />}
-            />
-            <Route path="/users/:id" exact={true} component={UserShow} />
-            <Route path="/users/new" exact={true} render={() => <UserForm />} />
-            <Route path="/tasks" exact={true} render={() => <TaskList />} />
-            <Route path="/tasks/new" exact={true} render={() => <TaskForm />} />
+            <Switch>
+              <Route path="/" exact={true} render={() => <Home />} />
+              <Route path="/users" exact={true} render={() => <UserList />} />
+              <Route
+                path="/users/edit/:id"
+                exact={true}
+                render={() => <UserEdit />}
+              />
+              <Route
+                path="/users/new"
+                exact={true}
+                render={() => <UserForm />}
+              />
+              <Route path="/users/:id" exact={true} component={UserShow} />
+              <Route path="/tasks" exact={true} render={() => <TaskList />} />
+              <Route
+                path="/tasks/new"
+                exact={true}
+                render={() => <TaskForm />}
+              />
+            </Switch>
           </div>
         </Router>
       </div>

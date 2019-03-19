@@ -39,17 +39,13 @@ class Server {
   }
 
   send_post(path, data, callback, error_callback) {
-    var resp = $.ajax(path, {
+    return $.ajax(path, {
       method: 'post',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
       success: callback,
       error: error_callback
-    });
-    resp.then(msg => {
-      // console.log(msg);
-      return msg;
     });
   }
 
@@ -76,7 +72,7 @@ class Server {
 
   create_task(title, description, user, length, is_complete) {
     // TODO error handling
-    let resp = this.send_post(
+    return this.send_post(
       '/api/v1/tasks',
       {
         task: {
@@ -92,10 +88,11 @@ class Server {
           type: 'TASK_CREATE',
           data: resp.data
         });
-        window.location = window.location.href.substring(
-          0,
-          window.location.href.length - 4
-        );
+        return resp.data;
+        // window.location = window.location.href.substring(
+        //   0,
+        //   window.location.href.length - 4
+        // );
       },
       (request, _status, _error) => {
         if (request.responseJSON) {
@@ -111,7 +108,7 @@ class Server {
   }
 
   create_user(email, password) {
-    this.send_post(
+    let promise = this.send_post(
       '/api/v1/users',
       {
         user: {
@@ -126,11 +123,16 @@ class Server {
         });
 
         this.create_session(email, password);
+        store.dispatch({
+          type: 'REDIRECT_TRUE'
+        });
+
+        return resp.data;
         // TODO fix this
-        window.location = window.location.href.substring(
-          0,
-          window.location.href.length - 4
-        );
+        // window.location = window.location.href.substring(
+        //   0,
+        //   window.location.href.length - 4
+        // );
       },
       (request, _status, _error) => {
         if (request.responseJSON) {
@@ -143,6 +145,7 @@ class Server {
         }
       }
     );
+    return promise;
   }
 
   delete_task(id) {

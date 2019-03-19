@@ -14,6 +14,17 @@ function tasks(state = [], action) {
   }
 }
 
+function task(state = null, action) {
+  switch (action.type) {
+    case 'TASK_SHOW':
+      return action.data;
+    case 'TASK_UNSHOW':
+      return null;
+    default:
+      return state;
+  }
+}
+
 function users(state = [], action) {
   switch (action.type) {
     case 'USER_LIST':
@@ -49,16 +60,27 @@ function session(state = null, action) {
   }
 }
 
+function redirect(state = false, action) {
+  switch (action.type) {
+    case 'REDIRECT_TRUE':
+      return true;
+    case 'REDIRECT_UNTRUE':
+      return false;
+    default:
+      return state;
+  }
+}
+
 function root_reducer(state0, action) {
   console.log('reducer', state0, action);
 
   let reducer = combineReducers({
     tasks,
-
+    task,
     users,
     user,
-
-    session
+    session,
+    redirect
   });
 
   let state1 = reducer(state0, action);
