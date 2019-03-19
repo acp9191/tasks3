@@ -35,9 +35,14 @@ function User(props) {
   let { user, session, dispatch } = props;
 
   let showBtn = (
-    <button className="btn btn-secondary" onClick={() => console.log('TODO')}>
-      Show
-    </button>
+    <Link to={'/users/' + user.id}>
+      <button
+        className="btn btn-secondary"
+        onClick={() => api.fetch_user(user.id)}
+      >
+        Show
+      </button>
+    </Link>
   );
 
   function confirmDelete() {

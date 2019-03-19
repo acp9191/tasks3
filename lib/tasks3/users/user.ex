@@ -7,7 +7,7 @@ defmodule Tasks3.Users.User do
     field :admin, :boolean, default: false
     field :email, :string
     field :password_hash, :string
-    has_many :tasks, Tasks3.Tasks.Task
+    has_many :tasks, Tasks3.Tasks.Task, on_delete: :delete_all
 
     timestamps()
   end

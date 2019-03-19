@@ -30,6 +30,7 @@ defmodule Tasks3Web.Router do
     get "/tasks/new", PageController, :index
     get "/users", PageController, :index
     get "/users/new", PageController, :index
+    get "/users/:id", PageController, :index
   end
 
   # Other scopes may use custom stacks.

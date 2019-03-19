@@ -29,6 +29,15 @@ class Server {
     });
   }
 
+  fetch_user(id) {
+    this.fetch_path('/api/v1/users/' + id, resp => {
+      store.dispatch({
+        type: 'USER_SHOW',
+        data: resp.data
+      });
+    });
+  }
+
   send_post(path, data, callback, error_callback) {
     var resp = $.ajax(path, {
       method: 'post',
@@ -162,6 +171,7 @@ class Server {
           type: 'USER_DELETE',
           user_id: id
         });
+        this.fetch_tasks();
       }
     });
   }
