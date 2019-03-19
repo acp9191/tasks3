@@ -65,11 +65,11 @@ class Server {
           type: 'NEW_SESSION',
           data: resp.data
         });
-        return resp.data;
       },
-      (request, status, error) => {
-        alert(request.responseJSON);
-        // console.log(request, status, error);
+      (request, _status, _error) => {
+        if (request) {
+          alert('Invalid Email or Password');
+        }
       }
     );
   }

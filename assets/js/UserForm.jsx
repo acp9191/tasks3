@@ -3,8 +3,14 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
 
-function UserForm() {
+function UserForm(props) {
+  let { user } = props;
+
   let email, password;
+
+  if (user != null) {
+    email = user.email;
+  }
 
   function update(ev, field) {
     switch (field) {
@@ -40,9 +46,10 @@ function UserForm() {
           <label>Email</label>
           <input
             className="form-control"
-            onChange={ev => {
-              update(ev, 'EMAIL');
-            }}
+            // onChange={ev => {
+            //   update(ev, 'EMAIL');
+            // }}
+            value={email}
             type="email"
             required
           />

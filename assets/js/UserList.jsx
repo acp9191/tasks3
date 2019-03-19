@@ -62,9 +62,14 @@ function User(props) {
     session && session.user_id == user.id ? (
       <td>
         {showBtn}
-        <button className="btn btn-info" onClick={() => console.log('TODO2')}>
-          Edit
-        </button>
+        <Link to={'/users/edit/' + user.id}>
+          <button
+            className="btn btn-info"
+            onClick={() => api.fetch_user(user.id)}
+          >
+            Edit
+          </button>
+        </Link>
         <button className="btn btn-danger" onClick={confirmDelete}>
           Delete
         </button>

@@ -37,7 +37,12 @@ class Root extends Component {
             <Header />
             <Route path="/" exact={true} render={() => <Home />} />
             <Route path="/users" exact={true} render={() => <UserList />} />
-            <Route path="/users/:id" component={UserShow} />
+            <Route
+              path="/users/edit/:id"
+              exact={true}
+              render={() => <UserForm />}
+            />
+            <Route path="/users/:id" exact={true} component={UserShow} />
             <Route path="/users/new" exact={true} render={() => <UserForm />} />
             <Route path="/tasks" exact={true} render={() => <TaskList />} />
             <Route path="/tasks/new" exact={true} render={() => <TaskForm />} />

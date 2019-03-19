@@ -26,11 +26,16 @@ defmodule Tasks3Web.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    
     get "/tasks", PageController, :index
     get "/tasks/new", PageController, :index
+    get "/tasks/:id", PageController, :index
+    get "/tasks/edit/:id", PageController, :index
+
     get "/users", PageController, :index
     get "/users/new", PageController, :index
     get "/users/:id", PageController, :index
+    get "/users/edit/:id", PageController, :index
   end
 
   # Other scopes may use custom stacks.
