@@ -24,7 +24,6 @@ function UserEdit(props) {
 
   function handleSubmit(ev) {
     api.update_user(user.id, email, password).then(() => {
-      console.log('redirect untrue');
       store.dispatch({
         type: 'REDIRECT_UNTRUE'
       });

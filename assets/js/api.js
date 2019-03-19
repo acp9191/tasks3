@@ -195,10 +195,6 @@ class Server {
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
       success: resp => {
-        store.dispatch({
-          type: 'USER_LIST',
-          data: resp.data
-        });
         this.fetch_users();
         this.fetch_tasks();
         store.dispatch({
@@ -237,10 +233,6 @@ class Server {
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
       success: resp => {
-        store.dispatch({
-          type: 'TASK_LIST',
-          data: resp.data
-        });
         this.fetch_tasks();
         store.dispatch({
           type: 'REDIRECT_TRUE'
@@ -249,7 +241,6 @@ class Server {
         return resp.data;
       },
       error: (request, _status, _error) => {
-        console.log(request);
         if (request.responseJSON) {
           let errors = request.responseJSON.errors;
           for (var key in errors)

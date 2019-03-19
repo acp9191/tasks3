@@ -46,9 +46,14 @@ function TaskEdit(props) {
   } else if (redirect == true) {
     return <Redirect to="/tasks" />;
   } else {
+    title = task.title;
+    description = task.description;
+    user = task.user_id;
+    length = task.length;
+    is_complete = task.is_complete;
     return (
       <div>
-        <form>
+        <form noValidate>
           <div className="form-group">
             <label>Title</label>
             <input
@@ -57,7 +62,7 @@ function TaskEdit(props) {
                 update(ev, 'TITLE');
               }}
               type="text"
-              placeholder={task.title}
+              placeholder={title}
               required
             />
           </div>
@@ -69,7 +74,7 @@ function TaskEdit(props) {
                 update(ev, 'DESCRIPTION');
               }}
               type="text"
-              placeholder={task.description}
+              placeholder={description}
               required
             />
           </div>
@@ -81,7 +86,7 @@ function TaskEdit(props) {
                 update(ev, 'USER');
               }}
               type="text"
-              placeholder={task.user_id}
+              placeholder={user}
               required
             />
           </div>
@@ -93,7 +98,7 @@ function TaskEdit(props) {
                 update(ev, 'LENGTH');
               }}
               type="number"
-              placeholder={task.length}
+              placeholder={length}
               required
             />
           </div>
