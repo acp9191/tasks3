@@ -29,8 +29,8 @@ function TaskShow(props) {
             <span>{task.length}</span>
           </li>
           <li>
-            <strong>Is Completed?: </strong>
-            <span>{task.is_completed ? 'yes' : 'no'}</span>
+            <strong>Is Complete?: </strong>
+            <span>{task.is_complete ? 'yes' : 'no'}</span>
           </li>
         </ul>
         <br />

@@ -80,7 +80,6 @@ class Server {
   }
 
   create_task(title, description, user, length, is_complete) {
-    // TODO error handling
     return this.send_post(
       '/api/v1/tasks',
       {
@@ -96,6 +95,9 @@ class Server {
         store.dispatch({
           type: 'TASK_CREATE',
           data: resp.data
+        });
+        store.dispatch({
+          type: 'REDIRECT_TRUE'
         });
         return resp.data;
       },
@@ -113,7 +115,7 @@ class Server {
   }
 
   create_user(email, password) {
-    let promise = this.send_post(
+    return this.send_post(
       '/api/v1/users',
       {
         user: {
@@ -127,10 +129,9 @@ class Server {
           data: resp.data
         });
 
-        this.create_session(email, password).then(() => {
-          store.dispatch({
-            type: 'REDIRECT_TRUE'
-          });
+        this.create_session(email, password);
+        store.dispatch({
+          type: 'REDIRECT_TRUE'
         });
 
         return resp.data;
@@ -146,7 +147,6 @@ class Server {
         }
       }
     );
-    return promise;
   }
 
   delete_task(id) {

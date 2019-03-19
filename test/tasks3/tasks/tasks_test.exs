@@ -6,9 +6,9 @@ defmodule Tasks3.TasksTest do
   describe "tasks" do
     alias Tasks3.Tasks.Task
 
-    @valid_attrs %{description: "some description", is_completed: true, length: 42, title: "some title"}
-    @update_attrs %{description: "some updated description", is_completed: false, length: 43, title: "some updated title"}
-    @invalid_attrs %{description: nil, is_completed: nil, length: nil, title: nil}
+    @valid_attrs %{description: "some description", is_complete: true, length: 42, title: "some title"}
+    @update_attrs %{description: "some updated description", is_complete: false, length: 43, title: "some updated title"}
+    @invalid_attrs %{description: nil, is_complete: nil, length: nil, title: nil}
 
     def task_fixture(attrs \\ %{}) do
       {:ok, task} =
@@ -32,7 +32,7 @@ defmodule Tasks3.TasksTest do
     test "create_task/1 with valid data creates a task" do
       assert {:ok, %Task{} = task} = Tasks.create_task(@valid_attrs)
       assert task.description == "some description"
-      assert task.is_completed == true
+      assert task.is_complete == true
       assert task.length == 42
       assert task.title == "some title"
     end
@@ -47,7 +47,7 @@ defmodule Tasks3.TasksTest do
 
       
       assert task.description == "some updated description"
-      assert task.is_completed == false
+      assert task.is_complete == false
       assert task.length == 43
       assert task.title == "some updated title"
     end

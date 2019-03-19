@@ -8,7 +8,7 @@ function TaskList(props) {
   let { tasks, session, dispatch } = props;
 
   let rows = _.map(tasks, task => (
-    <Task key={task.id} task={task} dispatch={dispatch} />
+    <Task key={task.id} task={task} session={session} dispatch={dispatch} />
   ));
 
   let newBtn = session ? (
@@ -42,14 +42,38 @@ function TaskList(props) {
 }
 
 function Task(props) {
-  let { task } = props;
+  let { task, session } = props;
+
+  let loggedInBtns = session ? (
+    <span>
+      <button className="btn btn-info" onClick={() => updateTaskView('EDIT')}>
+        Edit
+      </button>
+      <button
+        className="btn btn-danger"
+        onClick={() => {
+          let confirmDelete = confirm(
+            'Are you sure you want to delete ' + task.title + '?'
+          );
+          if (confirmDelete) {
+            api.delete_task(task.id);
+          }
+        }}
+      >
+        Delete
+      </button>{' '}
+    </span>
+  ) : (
+    <span />
+  );
+
   return (
     <tr>
       <td>{task.title}</td>
       <td>{task.description}</td>
       <td>{task.user_id}</td>
       <td>{task.length}</td>
-      <td>{task.is_completed ? 'yes' : 'no'}</td>
+      <td>{task.is_complete ? 'yes' : 'no'}</td>
       <td>
         <Link to={'/tasks/' + task.id}>
           <button
@@ -59,22 +83,7 @@ function Task(props) {
             Show
           </button>
         </Link>
-        <button className="btn btn-info" onClick={() => updateTaskView('EDIT')}>
-          Edit
-        </button>
-        <button
-          className="btn btn-danger"
-          onClick={() => {
-            let confirmDelete = confirm(
-              'Are you sure you want to delete ' + task.title + '?'
-            );
-            if (confirmDelete) {
-              api.delete_task(task.id);
-            }
-          }}
-        >
-          Delete
-        </button>
+        {loggedInBtns}
       </td>
     </tr>
   );

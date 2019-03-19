@@ -20,5 +20,5 @@ Repo.insert!(%User{email: "bob@example.com", password_hash: pwhash})
 
 alias Tasks3.Tasks.Task
 
-Repo.insert!(%Task{title: "task1", description: "First Task", length: 15, is_completed: false, user_id: 1})
-Repo.insert!(%Task{title: "task2", description: "Second Task", length: 15, is_completed: false, user_id: 2})
+Repo.insert!(%Task{title: "task1", description: "First Task", length: 15, is_complete: true, user_id: 1})
+Repo.insert!(%Task{title: "task2", description: "Second Task", length: 15, is_complete: false, user_id: 2})

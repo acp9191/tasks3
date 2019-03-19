@@ -18,7 +18,7 @@ defmodule Tasks3Web.TaskController do
 
   def create(conn, %{"task" => task_params}) do
 
-    IO.inspect(task_params)
+    # IO.inspect(task_params)
 
     email = if (task_params["user"]) do
       task_params["user"]
@@ -37,6 +37,10 @@ defmodule Tasks3Web.TaskController do
     IO.inspect(task_params)
 
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
+
+      user = Users.get_user(task.user_id)
+      task = %{task | user_id: user.email}
+      
       conn
       |> put_status(:created)
       |> put_resp_header("location", Routes.task_path(conn, :show, task))

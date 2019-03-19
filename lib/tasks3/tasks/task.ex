@@ -5,7 +5,7 @@ defmodule Tasks3.Tasks.Task do
 
   schema "tasks" do
     field :description, :string
-    field :is_completed, :boolean, default: false
+    field :is_complete, :boolean, default: false
     field :length, :integer
     field :title, :string
     belongs_to :user, Tasks3.Users.User
@@ -16,9 +16,9 @@ defmodule Tasks3.Tasks.Task do
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:title, :description, :length, :is_completed, :user_id])
+    |> cast(attrs, [:title, :description, :length, :is_complete, :user_id])
     |> foreign_key_constraint(:user_id)
-    |> validate_required([:title, :description, :length, :is_completed, :user_id])
+    |> validate_required([:title, :description, :length, :is_complete, :user_id])
     |> validate_div_by_15(:length)
   end
 

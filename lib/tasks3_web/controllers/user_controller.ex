@@ -13,14 +13,12 @@ defmodule Tasks3Web.UserController do
 
   def create(conn, %{"user" => user_params}) do
 
-    # IO.inspect(user_params["password"])
-
     pwhash = if (user_params["password"] != nil) do
       Argon2.hash_pwd_salt(user_params["password"])
     else
       ""
     end
-    # IO.inspect(pwhash)
+
     user_params = Map.put(user_params, "password_hash", pwhash)
 
     with {:ok, %User{} = user} <- Users.create_user(user_params) do

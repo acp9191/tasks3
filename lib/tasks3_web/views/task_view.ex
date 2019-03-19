@@ -16,7 +16,7 @@ defmodule Tasks3Web.TaskView do
       title: task.title,
       description: task.description,
       length: task.length,
-      is_completed: task.is_completed,
+      is_complete: task.is_complete,
       user_id: task.user_id
     }
   end

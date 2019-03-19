@@ -6,17 +6,17 @@ defmodule Tasks3Web.TaskControllerTest do
 
   @create_attrs %{
     description: "some description",
-    is_completed: true,
+    is_complete: true,
     length: 42,
     title: "some title"
   }
   @update_attrs %{
     description: "some updated description",
-    is_completed: false,
+    is_complete: false,
     length: 43,
     title: "some updated title"
   }
-  @invalid_attrs %{description: nil, is_completed: nil, length: nil, title: nil}
+  @invalid_attrs %{description: nil, is_complete: nil, length: nil, title: nil}
 
   def fixture(:task) do
     {:ok, task} = Tasks.create_task(@create_attrs)
@@ -44,7 +44,7 @@ defmodule Tasks3Web.TaskControllerTest do
       assert %{
                "id" => id,
                "description" => "some description",
-               "is_completed" => true,
+               "is_complete" => true,
                "length" => 42,
                "title" => "some title"
              } = json_response(conn, 200)["data"]
@@ -68,7 +68,7 @@ defmodule Tasks3Web.TaskControllerTest do
       assert %{
                "id" => id,
                "description" => "some updated description",
-               "is_completed" => false,
+               "is_complete" => false,
                "length" => 43,
                "title" => "some updated title"
              } = json_response(conn, 200)["data"]
