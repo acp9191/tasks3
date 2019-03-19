@@ -12,6 +12,10 @@ defmodule Tasks3Web.UserController do
   end
 
   def create(conn, %{"user" => user_params}) do
+
+    pwhash = Argon2.hash_pwd_salt(user_params["password"])
+    user_params = Map.put(user_params, "password_hash", pwhash)
+
     with {:ok, %User{} = user} <- Users.create_user(user_params) do
       conn
       |> put_status(:created)

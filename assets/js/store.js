@@ -29,6 +29,8 @@ function users(state = [], action) {
       return action.data;
     case 'USER_DELETE':
       return _.filter(state, user => user.id != action.user_id);
+    case 'USER_CREATE':
+      return _.concat(state, action.data);
     default:
       return state;
   }

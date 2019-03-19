@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
 
-function TaskForm(props) {
+function TaskForm() {
   let title,
     description,
     user,

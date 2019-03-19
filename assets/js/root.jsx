@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 
 import api from './api';
 import Header from './Header';
+import Home from './Home';
+import UserList from './UserList';
+import UserForm from './UserForm';
 import TaskList from './TaskList';
 import TaskForm from './TaskForm';
-import UserList from './UserList';
 
 export default function root_init(node, store) {
   let tasks = window.tasks;
@@ -35,8 +37,9 @@ class Root extends Component {
         <Router>
           <div>
             <Header />
-            <Route path="/" exact={true} render={() => <TaskList />} />
+            <Route path="/" exact={true} render={() => <Home />} />
             <Route path="/users" exact={true} render={() => <UserList />} />
+            <Route path="/users/new" exact={true} render={() => <UserForm />} />
             <Route path="/tasks" exact={true} render={() => <TaskList />} />
             <Route path="/tasks/new" exact={true} render={() => <TaskForm />} />
           </div>

@@ -5,11 +5,19 @@ import { Link } from 'react-router-dom';
 import api from './api';
 
 function TaskList(props) {
-  let { tasks, dispatch } = props;
+  let { tasks, session, dispatch } = props;
 
   let rows = _.map(tasks, task => (
     <Task key={task.id} task={task} dispatch={dispatch} />
   ));
+
+  let newBtn = session ? (
+    <span>
+      <Link to="/tasks/new">New Task</Link>
+    </span>
+  ) : (
+    <span />
+  );
 
   return (
     <div className="row">
@@ -27,9 +35,7 @@ function TaskList(props) {
           </thead>
           <tbody>{rows}</tbody>
         </table>
-        <span>
-          <Link to="/tasks/new">New Task</Link>
-        </span>
+        {newBtn}
       </div>
     </div>
   );
@@ -74,7 +80,8 @@ function Task(props) {
 
 function state2props(state) {
   return {
-    tasks: state.tasks
+    tasks: state.tasks,
+    session: state.session
   };
 }
 

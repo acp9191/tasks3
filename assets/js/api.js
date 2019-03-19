@@ -52,6 +52,9 @@ class Server {
           type: 'NEW_SESSION',
           data: resp.data
         });
+      },
+      (request, status, error) => {
+        console.log(request, status, error);
       }
     );
   }
@@ -81,25 +84,27 @@ class Server {
     );
   }
 
-  // add_to_cart(product_id) {
-  //   let state = store.getState();
-  //   let user_id = state.session.user_id;
-  //   let count = state.add_item_forms.get(product_id) || 1;
-  //   console.log('add to cart', state);
-  //   this.send_post(
-  //     '/api/v1/cart_items',
-  //     {
-  //       cart_item: {
-  //         product_id,
-  //         user_id,
-  //         count
-  //       }
-  //     },
-  //     resp => {
-  //       this.fetch_cart();
-  //     }
-  //   );
-  // }
+  create_user(email, password) {
+    // TODO error handling
+    this.send_post(
+      '/api/v1/users',
+      {
+        user: {
+          email,
+          password
+        }
+      },
+      resp => {
+        store.dispatch({
+          type: 'USER_CREATE',
+          data: resp.data
+        });
+      },
+      (request, status, error) => {
+        console.log(request, status, error);
+      }
+    );
+  }
 
   delete_task(id) {
     $.ajax('/api/v1/tasks/' + id, {

@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import api from './api';
 
 function UserList(props) {
-  let { users, dispatch } = props;
+  let { users, session } = props;
+  console.log(session);
   let rows = _.map(users, user => (
-    <User key={user.id} user={user} dispatch={dispatch} />
+    <User key={user.id} user={user} session={session} />
   ));
 
   return (
@@ -24,12 +25,7 @@ function UserList(props) {
           <tbody>{rows}</tbody>
         </table>
         <span>
-          <button
-            className="btn btn-primary"
-            onClick={() => console.log('TOD4')}
-          >
-            New User
-          </button>
+          <Link to="/users/new">New User</Link>
         </span>
       </div>
     </div>
@@ -37,18 +33,18 @@ function UserList(props) {
 }
 
 function User(props) {
-  let { user } = props;
-  return (
-    <tr>
-      <td>{user.email}</td>
-      <td>{user.admin ? 'yes' : 'no'}</td>
+  let { user, session } = props;
+
+  let showBtn = (
+    <button className="btn btn-secondary" onClick={() => console.log('TODO')}>
+      Show
+    </button>
+  );
+
+  let buttons =
+    session && session.user_id == user.id ? (
       <td>
-        <button
-          className="btn btn-secondary"
-          onClick={() => console.log('TODO')}
-        >
-          Show
-        </button>
+        {showBtn}
         <button className="btn btn-info" onClick={() => console.log('TODO2')}>
           Edit
         </button>
@@ -66,13 +62,23 @@ function User(props) {
           Delete
         </button>
       </td>
+    ) : (
+      <td>{showBtn}</td>
+    );
+
+  return (
+    <tr>
+      <td>{user.email}</td>
+      <td>{user.admin ? 'yes' : 'no'}</td>
+      {buttons}
     </tr>
   );
 }
 
 function state2props(state) {
   return {
-    users: state.users
+    users: state.users,
+    session: state.session
   };
 }
 
