@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import api from './api';
+import store from './store';
 
 function UserEdit(props) {
-  let { user } = props;
+  let { user, redirect } = props;
 
   let email, password;
 
@@ -22,11 +23,18 @@ function UserEdit(props) {
   }
 
   function handleSubmit(ev) {
-    api.update_user(user.id, email, password);
+    api.update_user(user.id, email, password).then(() => {
+      console.log('redirect untrue');
+      store.dispatch({
+        type: 'REDIRECT_UNTRUE'
+      });
+    });
   }
 
   if (user == null) {
     return <div>Loading . . .</div>;
+  } else if (redirect == true) {
+    return <Redirect to="/users" />;
   } else {
     email = user.email;
     return (
@@ -76,7 +84,8 @@ function UserEdit(props) {
 
 function state2props(state) {
   return {
-    user: state.user
+    user: state.user,
+    redirect: state.redirect
   };
 }
 

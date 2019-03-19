@@ -16,11 +16,6 @@ function UserShow(props) {
             <strong>Email: </strong>
             <span>{user.email}</span>
           </li>
-
-          <li>
-            <strong>Admin?: </strong>
-            <span>{user.admin ? 'yes' : 'no'}</span>
-          </li>
         </ul>
         <br />
         <span>

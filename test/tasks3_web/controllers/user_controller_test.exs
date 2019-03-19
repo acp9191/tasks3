@@ -5,16 +5,14 @@ defmodule Tasks3Web.UserControllerTest do
   alias Tasks3.Users.User
 
   @create_attrs %{
-    admin: true,
     email: "some email",
     password_hash: "some password_hash"
   }
   @update_attrs %{
-    admin: false,
     email: "some updated email",
     password_hash: "some updated password_hash"
   }
-  @invalid_attrs %{admin: nil, email: nil, password_hash: nil}
+  @invalid_attrs %{email: nil, password_hash: nil}
 
   def fixture(:user) do
     {:ok, user} = Users.create_user(@create_attrs)
@@ -41,7 +39,6 @@ defmodule Tasks3Web.UserControllerTest do
 
       assert %{
                "id" => id,
-               "admin" => true,
                "email" => "some email",
                "password_hash" => "some password_hash"
              } = json_response(conn, 200)["data"]
@@ -64,7 +61,6 @@ defmodule Tasks3Web.UserControllerTest do
 
       assert %{
                "id" => id,
-               "admin" => false,
                "email" => "some updated email",
                "password_hash" => "some updated password_hash"
              } = json_response(conn, 200)["data"]

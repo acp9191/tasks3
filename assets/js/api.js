@@ -2,7 +2,7 @@ import store from './store';
 
 class Server {
   fetch_path(path, callback) {
-    $.ajax(path, {
+    return $.ajax(path, {
       method: 'get',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
@@ -12,7 +12,7 @@ class Server {
   }
 
   fetch_tasks() {
-    this.fetch_path('/api/v1/tasks', resp => {
+    return this.fetch_path('/api/v1/tasks', resp => {
       store.dispatch({
         type: 'TASK_LIST',
         data: resp.data
@@ -21,7 +21,7 @@ class Server {
   }
 
   fetch_users() {
-    this.fetch_path('/api/v1/users', resp => {
+    return this.fetch_path('/api/v1/users', resp => {
       store.dispatch({
         type: 'USER_LIST',
         data: resp.data
@@ -30,7 +30,7 @@ class Server {
   }
 
   fetch_user(id) {
-    this.fetch_path('/api/v1/users/' + id, resp => {
+    return this.fetch_path('/api/v1/users/' + id, resp => {
       store.dispatch({
         type: 'USER_SHOW',
         data: resp.data
@@ -50,7 +50,7 @@ class Server {
   }
 
   create_session(email, password) {
-    this.send_post(
+    return this.send_post(
       '/api/v1/auth',
       {
         email,
@@ -89,10 +89,6 @@ class Server {
           data: resp.data
         });
         return resp.data;
-        // window.location = window.location.href.substring(
-        //   0,
-        //   window.location.href.length - 4
-        // );
       },
       (request, _status, _error) => {
         if (request.responseJSON) {
@@ -122,17 +118,13 @@ class Server {
           data: resp.data
         });
 
-        this.create_session(email, password);
-        store.dispatch({
-          type: 'REDIRECT_TRUE'
+        this.create_session(email, password).then(() => {
+          store.dispatch({
+            type: 'REDIRECT_TRUE'
+          });
         });
 
         return resp.data;
-        // TODO fix this
-        // window.location = window.location.href.substring(
-        //   0,
-        //   window.location.href.length - 4
-        // );
       },
       (request, _status, _error) => {
         if (request.responseJSON) {
@@ -149,7 +141,7 @@ class Server {
   }
 
   delete_task(id) {
-    $.ajax('/api/v1/tasks/' + id, {
+    return $.ajax('/api/v1/tasks/' + id, {
       method: 'delete',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
@@ -164,12 +156,12 @@ class Server {
   }
 
   delete_user(id) {
-    $.ajax('/api/v1/users/' + id, {
+    return $.ajax('/api/v1/users/' + id, {
       method: 'delete',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
       data: '',
-      success: resp => {
+      success: _resp => {
         store.dispatch({
           type: 'USER_DELETE',
           user_id: id
@@ -188,7 +180,7 @@ class Server {
       }
     };
 
-    $.ajax('/api/v1/users/' + id, {
+    return $.ajax('/api/v1/users/' + id, {
       method: 'put',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
@@ -198,11 +190,13 @@ class Server {
           type: 'USER_LIST',
           data: resp.data
         });
+        this.fetch_users();
         this.fetch_tasks();
-        window.location = window.location.href.substring(
-          0,
-          window.location.href.length - 7
-        );
+        store.dispatch({
+          type: 'REDIRECT_TRUE'
+        });
+
+        return resp.data;
       },
       error: (request, _status, _error) => {
         if (request.responseJSON) {

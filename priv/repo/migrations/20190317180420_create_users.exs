@@ -5,7 +5,6 @@ defmodule Tasks3.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :email, :string
       add :password_hash, :string
-      add :admin, :boolean, default: false, null: false
 
       timestamps()
     end

@@ -17,7 +17,6 @@ function UserList(props) {
           <thead>
             <tr>
               <th>Email</th>
-              <th>Admin?</th>
               <th />
             </tr>
           </thead>
@@ -81,7 +80,6 @@ function User(props) {
   return (
     <tr>
       <td>{user.email}</td>
-      <td>{user.admin ? 'yes' : 'no'}</td>
       {buttons}
     </tr>
   );
