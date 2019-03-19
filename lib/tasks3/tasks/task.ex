@@ -17,6 +17,7 @@ defmodule Tasks3.Tasks.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:title, :description, :length, :is_completed, :user_id])
+    |> foreign_key_constraint(:user_id)
     |> validate_required([:title, :description, :length, :is_completed, :user_id])
     |> validate_div_by_15(:length)
   end

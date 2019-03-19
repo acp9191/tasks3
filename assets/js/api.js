@@ -30,13 +30,17 @@ class Server {
   }
 
   send_post(path, data, callback, error_callback) {
-    $.ajax(path, {
+    var resp = $.ajax(path, {
       method: 'post',
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
       success: callback,
       error: error_callback
+    });
+    resp.then(msg => {
+      console.log(msg);
+      return msg;
     });
   }
 
@@ -52,16 +56,18 @@ class Server {
           type: 'NEW_SESSION',
           data: resp.data
         });
+        return resp.data;
       },
       (request, status, error) => {
-        console.log(request, status, error);
+        alert(request.responseJSON);
+        // console.log(request, status, error);
       }
     );
   }
 
   create_task(title, description, user, length, is_complete) {
     // TODO error handling
-    this.send_post(
+    let resp = this.send_post(
       '/api/v1/tasks',
       {
         task: {
@@ -77,15 +83,25 @@ class Server {
           type: 'TASK_CREATE',
           data: resp.data
         });
+        window.location = window.location.href.substring(
+          0,
+          window.location.href.length - 4
+        );
       },
-      (request, status, error) => {
-        console.log(request, status, error);
+      (request, _status, _error) => {
+        if (request.responseJSON) {
+          let errors = request.responseJSON.errors;
+          for (var key in errors)
+            if (errors.hasOwnProperty(key)) {
+              let displayKey = key == 'user_id' ? 'User' : key;
+              alert('Error in field ' + displayKey + ': ' + errors[key]);
+            }
+        }
       }
     );
   }
 
   create_user(email, password) {
-    // TODO error handling
     this.send_post(
       '/api/v1/users',
       {
@@ -99,9 +115,23 @@ class Server {
           type: 'USER_CREATE',
           data: resp.data
         });
+
+        this.create_session(email, password);
+        // TODO fix this
+        window.location = window.location.href.substring(
+          0,
+          window.location.href.length - 4
+        );
       },
-      (request, status, error) => {
-        console.log(request, status, error);
+      (request, _status, _error) => {
+        if (request.responseJSON) {
+          let errors = request.responseJSON.errors;
+          for (var key in errors)
+            if (errors.hasOwnProperty(key)) {
+              let displayKey = key == 'password_hash' ? 'Password' : 'Email';
+              alert('Error in field ' + displayKey + ': ' + errors[key]);
+            }
+        }
       }
     );
   }
@@ -112,7 +142,7 @@ class Server {
       dataType: 'json',
       contentType: 'application/json; charset=UTF-8',
       data: '',
-      success: resp => {
+      success: _resp => {
         store.dispatch({
           type: 'TASK_DELETE',
           task_id: id

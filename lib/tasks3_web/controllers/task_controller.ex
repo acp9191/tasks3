@@ -18,14 +18,23 @@ defmodule Tasks3Web.TaskController do
 
   def create(conn, %{"task" => task_params}) do
 
-    email = task_params["user"]
+    IO.inspect(task_params)
+
+    email = if (task_params["user"]) do
+      task_params["user"]
+    else 
+      ""
+    end
+    
     user = Users.get_user_by_email(email)
 
     task_params = if (user != nil) do
       Map.put(task_params, "user_id", user.id)
     else
-      task_params
+      Map.put(task_params, "user_id", -1)
     end
+
+    IO.inspect(task_params)
 
     with {:ok, %Task{} = task} <- Tasks.create_task(task_params) do
       conn

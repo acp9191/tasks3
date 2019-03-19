@@ -19,9 +19,23 @@ function UserForm() {
     }
   }
 
+  function handleSubmit(ev) {
+    console.log('handle');
+    // ev.preventDefault();
+    // const form = ev.target;
+    // const data =
+
+    let resp = api.create_user(email, password);
+    console.log(resp);
+    // window.location = window.location.href.substring(
+    //   0,
+    //   window.location.href.length - 4
+    // );
+  }
+
   return (
     <div>
-      <form>
+      <form noValidate>
         <div className="form-group">
           <label>Email</label>
           <input
@@ -29,7 +43,8 @@ function UserForm() {
             onChange={ev => {
               update(ev, 'EMAIL');
             }}
-            type="text"
+            type="email"
+            required
           />
         </div>
         <div className="form-group">
@@ -40,6 +55,7 @@ function UserForm() {
               update(ev, 'PASSWORD');
             }}
             type="password"
+            required
           />
         </div>
       </form>
@@ -47,7 +63,7 @@ function UserForm() {
         <button
           className="btn btn-primary"
           type="submit"
-          onClick={() => api.create_user(email, password)}
+          onClick={handleSubmit}
         >
           Save
         </button>
