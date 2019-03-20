@@ -30,3 +30,4 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Only logged in users can create a new task
   * Once a user is logged in they can edit or delete any task, in addition to viewing them
   * Validation for logging in, creating a new user, editing a user, createing a new task, and editing a task are done by alerting the user through the browser
+  * A user is automatically logged out on page refresh 
