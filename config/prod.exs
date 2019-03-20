@@ -10,9 +10,13 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :tasks3, Tasks3Web.Endpoint,
-  http: [:inet6, port: System.get_env("PORT") || 4000],
+  server: true,
+  root: ".",
+  version: Application.spec(:phoenix_distillery, :vsn),
+  http: [:inet6, port: {:system, "PORT"}],
   url: [host: "tasks3.ultravioletmasterpiece.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: get_secret.("key_base")
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -68,4 +72,10 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs which should be versioned
 # separately.
-import_config "prod.secret.exs"
+#import_config "prod.secret.exs"
+config :tasks3, Tasks3.Repo,
+  username: "tasks3",
+  password: "base12ball",
+  database: "tasks3_dev",
+  hostname: "localhost",
+  pool_size: 10
