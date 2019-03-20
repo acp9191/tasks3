@@ -60,6 +60,20 @@ defmodule Tasks3Web.TaskController do
   def update(conn, %{"id" => id, "task" => task_params}) do
     task = Tasks.get_task!(id)
 
+    email = if (task_params["user"]) do
+      task_params["user"]
+    else 
+      ""
+    end
+
+    user = Users.get_user_by_email(email)
+
+    task_params = if (user != nil) do
+      Map.put(task_params, "user_id", user.id)
+    else
+      Map.put(task_params, "user_id", -1)
+    end
+
     IO.inspect(task_params)
 
     with {:ok, %Task{} = task} <- Tasks.update_task(task, task_params) do

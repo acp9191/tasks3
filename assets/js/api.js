@@ -195,6 +195,7 @@ class Server {
       contentType: 'application/json; charset=UTF-8',
       data: JSON.stringify(data),
       success: resp => {
+        this.create_session(email, password);
         this.fetch_users();
         this.fetch_tasks();
         store.dispatch({
