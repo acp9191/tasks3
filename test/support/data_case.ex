@@ -1,4 +1,4 @@
-defmodule HuskyShop.DataCase do
+defmodule Tasks3.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -16,20 +16,20 @@ defmodule HuskyShop.DataCase do
 
   using do
     quote do
-      alias HuskyShop.Repo
+      alias Tasks3.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import HuskyShop.DataCase
+      import Tasks3.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HuskyShop.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Tasks3.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HuskyShop.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(Tasks3.Repo, {:shared, self()})
     end
 
     :ok
