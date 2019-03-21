@@ -50,7 +50,6 @@ function TaskEdit(props) {
     description = task.description;
     user = task.user_id;
     length = task.length;
-    is_complete = task.is_complete;
     return (
       <div>
         <form noValidate>
@@ -110,7 +109,6 @@ function TaskEdit(props) {
                 update(ev, 'IS_COMPLETE');
               }}
               type="checkbox"
-              checked={is_complete}
             />
           </div>
         </form>
